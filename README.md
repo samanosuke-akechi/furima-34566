@@ -2,16 +2,16 @@
 
 ## usersテーブル
 
-| Column           | Type   | Options     |
-| ---------------- | ------ | ----------- |
-| email            | string | null: false |
-| password         | string | null: false |
-| nickname         | string | null: false |
-| last_name_kanji  | string | null: false |
-| last_name_kana   | string | null: false |
-| first_name_kanji | string | null: false |
-| first_name_kana  | string | null: false |
-| birthday         | date   | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false, unique: true |
+| nickname           | string | null: false               |
+| last_name          | string | null: false               |
+| last_name_kana     | string | null: false               |
+| first_name         | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 
@@ -24,14 +24,13 @@
 | Column      | Type       | Options                        |
 | ----------- | ---------- | ------------------------------ |
 | name        | string     | null: false                    |
-| image       |            |                                |
 | description | text       | null: false                    |
-| category    | string     | null: false                    |
-| status      | string     | null: false                    |
-| burden      | string     | null: false                    |
-| area        | string     | null: false                    |
-| days        | string     | null: false                    |
-| user        | references | null: false, foreign_key: true |
+| category_id | integer    | null: false                    |
+| status_id   | integer    | null: false                    |
+| burden_id   | integer    | null: false                    |
+| area_id     | integer    | null: false                    |
+| days_id     | integer    | null: false                    |
+| user_id     | references | null: false, foreign_key: true |
 | price       | integer    | null: false                    |
 
 ### Association
@@ -44,17 +43,14 @@
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
-| card_num        | integer    | null: false                    |
-| expiration_date | integer    | null: false                    |
-| cvv             | integer    | null: false                    |
-| postal_code     | integer    | null: false                    |
+| postal_code     | string     | null: false                    |
 | state           | string     | null: false                    |
 | city            | string     | null: false                    |
 | address         | string     | null: false                    |
 | building        | string     |                                |
-| phone_num       | integer    | null: false                    |
-| user            | references | null: false, foreign_key: true |
-| item            | references | null: false, foreign_key: true |
+| phone_num       | string     | null: false                    |
+| user_id         | references | null: false, foreign_key: true |
+| item_id         | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -63,11 +59,11 @@
 
 ## commentsテーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| text   | text       | null: false                    |
-| user   | references | null: false, foreign_key: true |
-| item   | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| text    | text       | null: false                    |
+| user_id | references | null: false, foreign_key: true |
+| item_id | references | null: false, foreign_key: true |
 
 ### Association
 

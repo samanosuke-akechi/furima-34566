@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_many :buyer
+- has_many :buyers
 - has_many :comments
 
 ## itemsテーブル
@@ -57,7 +57,7 @@
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
 | postal_code     | string     | null: false                    |
-| state_id        | integer    | null: false                    |
+| area_id        | integer    | null: false                    |
 | city            | string     | null: false                    |
 | address         | string     | null: false                    |
 | building        | string     |                                |

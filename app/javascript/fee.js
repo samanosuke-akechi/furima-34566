@@ -6,7 +6,6 @@ function calc (){
     const feeForm  = document.getElementById("add-tax-price");
     feeForm.innerHTML = `${fee}`;
     const profit = Math.floor(price.value) - fee;
-    console.log(profit);
     const profitForm = document.getElementById("profit");
     profitForm.innerHTML = `${profit}`;
   })

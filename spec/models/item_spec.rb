@@ -74,6 +74,16 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
+      it 'priceが半角英数字混合だと保存できないこと' do
+        @item.price = "2000yen"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is invalid")
+      end
+      it 'priceが半角英字だと保存できないこと' do
+        @item.price = "okane"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is invalid")
+      end
     end
   end
 end

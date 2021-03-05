@@ -127,7 +127,7 @@
     <ul class='item-lists'>
 
       <%# 保存した商品の一覧表示 %>
-      <% @items.each do |item| %>  <%# 商品の一覧表示のコード 130~157行目 %>
+      <% @items.each do |item| %>
         <li class='list'>
           <%= link_to "#" do %>
           <div class='item-img-content'>
@@ -154,11 +154,11 @@
           </div>
           <% end %>
         </li>
-      <% end %>  <%# /商品の一覧表示のコード 130~157行目 %>
+      <% end %>
       <%# /保存した商品の一覧表示 %>
 
       <%# itemsテーブルにデータがない(商品がない)場合は以下のダミー画像が表示される %>
-      <% if @items == [] %>  <%# 商品がない時のダミー画像表示のコード 161~179行目 %>
+      <% if @items == [] %>
         <li class='list'>
           <%= link_to '#' do %>
           <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -176,7 +176,7 @@
           </div>
           <% end %>
         </li>
-      <% end %>  <%# /商品がない時のダミー画像表示のコード 161~179行目 %>
+      <% end %>
     </ul>
   </div>
   <%# /商品一覧 %>

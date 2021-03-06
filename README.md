@@ -36,7 +36,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :buyer
+- has_one :order
 - has_many :comments
 
 ## buyersテーブル
@@ -50,14 +50,14 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one: ship
+- has_one: order
 
-## shipsテーブル
+## ordersテーブル
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
 | postal_code     | string     | null: false                    |
-| area_id        | integer    | null: false                    |
+| area_id         | integer    | null: false                    |
 | city            | string     | null: false                    |
 | address         | string     | null: false                    |
 | building        | string     |                                |

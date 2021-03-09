@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update]
   before_action :not_exhibitor, only: [:edit, :update, :destroy]
+  before_action :sold_item, only: [:edit, :update, :destroy]
   
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -56,6 +57,16 @@ class ItemsController < ApplicationController
     set_item
     unless current_user.id == @item.user_id
       redirect_to action: :index
+    end
+  end
+
+  def sold_item
+    @buyer = Buyer.all
+    set_item
+    @buyer.each do |buyer|
+      if buyer.item_id == @item.id
+        redirect_to root_path
+      end
     end
   end
 end

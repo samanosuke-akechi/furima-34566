@@ -1,7 +1,9 @@
 class BuyersController < ApplicationController
+  before_action :not_buyer
+  
   def index
     @buyer_order = BuyerOrder.new
-    item_info
+    set_item
   end
 
   def create
@@ -11,7 +13,7 @@ class BuyersController < ApplicationController
       @buyer_order.save
       redirect_to root_path
     else
-      item_info
+      set_item
       render :index
     end
   end
@@ -22,7 +24,7 @@ class BuyersController < ApplicationController
     params.permit(:item_id, :postal_code, :area_id, :city, :address, :building, :phone_num).merge(user_id: current_user.id, token: params[:token])
   end
 
-  def item_info
+  def set_item
     @item = Item.find(params[:item_id])
   end
 
@@ -33,5 +35,12 @@ class BuyersController < ApplicationController
       card: params[:token],    # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
+  end
+
+  def not_buyer
+    set_item
+    unless user_signed_in? && current_user.id != @item.user_id
+      redirect_to root_path
+    end
   end
 end

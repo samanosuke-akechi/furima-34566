@@ -59,12 +59,8 @@ class ItemsController < ApplicationController
   end
 
   def sold_item
-    @buyer = Buyer.all
-    set_item
-    @buyer.each do |buyer|
-      if buyer.item_id == @item.id
-        redirect_to root_path
-      end
+    if @item.buyer != nil
+      redirect_to root_path
     end
   end
 end

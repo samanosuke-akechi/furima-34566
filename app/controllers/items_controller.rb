@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   
   def index
     @items = Item.includes(:user).order("created_at DESC")
+    @buyer = Buyer.all
   end
 
   def new

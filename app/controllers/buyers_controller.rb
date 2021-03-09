@@ -31,7 +31,7 @@ class BuyersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_***********"
+    Payjp.api_key = ""
     Payjp::Charge.create(
       amount: @item.price,  # 商品の値段
       card: params[:token],    # カードトークン
@@ -47,8 +47,12 @@ class BuyersController < ApplicationController
   end
 
   def sold_item
-    unless Buyer.find(params[:item_id]) == nil
-      redirect_to root_path
+    @buyer = Buyer.all
+    set_item
+    @buyer.each do |buyer|
+      if buyer.item_id == @item.id
+        redirect_to root_path
+      end
     end
   end
 end

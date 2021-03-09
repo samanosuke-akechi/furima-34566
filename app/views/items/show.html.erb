@@ -10,10 +10,8 @@
       <%= image_tag @item.image ,class:"item-box-img" %>
       <%# 売却済み商品のsold out表示 %>
       <div class="sold-out">
-        <% @buyer.each do |buyer| %>
-          <% if buyer.item_id == @item.id %>
-            <span>Sold Out!!</span>
-          <% end %>
+        <% if @item.buyer != nil %>
+          <span>Sold Out!!</span>
         <% end %>
       </div>
 
@@ -28,19 +26,15 @@
     </div>
 
     <%# ログインユーザーのみに表示されるボタン %>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @item.buyer == nil %>
       <%# 商品の編集・削除ボタン(出品者のみに表示される) %>
-      <% @buyer.each do |buyer| %>
-        <% unless buyer.item_id == @item.id %>
-          <% if current_user == @item.user %>
-            <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
-            <p class="or-text">or</p>
-            <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
-          <% else %>
-            <%# 「購入画面に進む」ボタン(出品者以外のログインユーザーのみに表示される) %>
-            <%= link_to "購入画面に進む", item_buyers_path(@item.id) ,class:"item-red-btn"%>
-          <% end %>
-        <% end %>
+      <% if current_user == @item.user %>
+        <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
+      <% else %>
+        <%# 「購入画面に進む」ボタン(出品者以外のログインユーザーのみに表示される) %>
+        <%= link_to "購入画面に進む", item_buyers_path(@item.id) ,class:"item-red-btn"%>
       <% end %>
     <% end %>
 

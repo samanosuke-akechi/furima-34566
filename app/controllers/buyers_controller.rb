@@ -5,7 +5,6 @@ class BuyersController < ApplicationController
   
   def index
     @buyer_order = BuyerOrder.new
-    set_item
   end
 
   def create
@@ -15,7 +14,6 @@ class BuyersController < ApplicationController
       @buyer_order.save
       redirect_to root_path
     else
-      set_item
       render :index
     end
   end
@@ -47,12 +45,8 @@ class BuyersController < ApplicationController
   end
 
   def sold_item
-    @buyer = Buyer.all
-    set_item
-    @buyer.each do |buyer|
-      if buyer.item_id == @item.id
-        redirect_to root_path
-      end
+    if @item.buyer != nil
+      redirect_to root_path
     end
   end
 end

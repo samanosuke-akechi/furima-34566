@@ -1,5 +1,7 @@
 class BuyersController < ApplicationController
+  before_action :authenticate_user!
   before_action :not_buyer
+  before_action :sold_item
   
   def index
     @buyer_order = BuyerOrder.new
@@ -39,7 +41,13 @@ class BuyersController < ApplicationController
 
   def not_buyer
     set_item
-    unless user_signed_in? && current_user.id != @item.user_id
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
+
+  def sold_item
+    unless Buyer.find(params[:item_id]) == nil
       redirect_to root_path
     end
   end

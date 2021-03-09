@@ -30,13 +30,17 @@
     <%# ログインユーザーのみに表示されるボタン %>
     <% if user_signed_in? %>
       <%# 商品の編集・削除ボタン(出品者のみに表示される) %>
-      <% if current_user == @item.user %>
-        <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
-        <p class="or-text">or</p>
-        <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
-      <%# 「購入画面に進む」ボタン(出品者以外のログインユーザーのみに表示される) %>
-      <% else %>
-        <%= link_to "購入画面に進む", item_buyers_path(@item.id) ,class:"item-red-btn"%>
+      <% @buyer.each do |buyer| %>
+        <% unless buyer.item_id == @item.id %>
+          <% if current_user == @item.user %>
+            <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
+            <p class="or-text">or</p>
+            <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
+          <% else %>
+            <%# 「購入画面に進む」ボタン(出品者以外のログインユーザーのみに表示される) %>
+            <%= link_to "購入画面に進む", item_buyers_path(@item.id) ,class:"item-red-btn"%>
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
 

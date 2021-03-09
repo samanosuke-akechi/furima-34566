@@ -135,7 +135,11 @@
 
             <%# 商品が売れていればsold outを表示しましょう %>
             <div class='sold-out'>
-              <%# <span>Sold Out!!</span> %>
+              <% @buyer.each do |buyer| %>
+                <% if buyer.item_id == item.id %>
+                  <span>Sold Out!!</span>
+                <% end %>
+              <% end %>
             </div>
             <%# //商品が売れていればsold outを表示しましょう %>
 

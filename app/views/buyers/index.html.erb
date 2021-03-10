@@ -33,7 +33,7 @@
     
     <%= render 'shared/error_messages', model: @buyer_order %>
 
-    <%= form_with url: item_buyers_path(@item.id), id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+    <%= form_with model: @buyer_order, url: item_buyers_path(@item.id), id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>

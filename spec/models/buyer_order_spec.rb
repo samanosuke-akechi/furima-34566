@@ -2,14 +2,19 @@ require 'rails_helper'
 
 RSpec.describe BuyerOrder, type: :model do
   before do
-    @item = FactoryBot.create(:item)
-    @buyer_order = FactoryBot.build(:buyer_order, item_id: @item.id)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item, user_id: @user.id)
+    @buyer_order = FactoryBot.build(:buyer_order, user_id: @user.id, item_id: @item.id)
     sleep(0.1)
   end
 
   describe '商品購入機能' do
     context '商品の購入ができる時' do
       it '全ての情報があれば登録できる' do
+        expect(@buyer_order).to be_valid
+      end
+      it 'buildingが空でも購入ができること' do
+        @buyer_order.building = ""
         expect(@buyer_order).to be_valid
       end
     end
@@ -51,7 +56,7 @@ RSpec.describe BuyerOrder, type: :model do
         expect(@buyer_order.errors.full_messages).to include("Area can't be blank")
       end
       it 'area_idが0では保存できないこと' do
-        @buyer_order.area_id = "0"
+        @buyer_order.area_id = 0
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Area Select")
       end
@@ -89,6 +94,16 @@ RSpec.describe BuyerOrder, type: :model do
         @buyer_order.phone_num = "aaaaaaaaaa"
         @buyer_order.valid?
         expect(@buyer_order.errors.full_messages).to include("Phone num is invalid. Do not include(-)")
+      end
+      it 'user_idが空だと保存できないこと' do
+        @buyer_order.user_id = ""
+        @buyer_order.valid?
+        expect(@buyer_order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと保存できないこと' do
+        @buyer_order.item_id = ""
+        @buyer_order.valid?
+        expect(@buyer_order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

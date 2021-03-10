@@ -50,6 +50,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  # 出品者以外のログインユーザーまたは売却済みの商品の編集・削除へのアクセス時にトップページへリダイレクトさせる
   def restriction
     if current_user.id != @item.user_id || @item.buyer != nil
       redirect_to root_path

@@ -37,6 +37,7 @@ class BuyersController < ApplicationController
     )
   end
 
+  # 出品者または売却済み商品の購入ページへのアクセス時にトップページへリダイレクトさせる
   def restriction
     if current_user.id == @item.user_id || @item.buyer != nil
       redirect_to root_path

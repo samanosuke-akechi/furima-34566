@@ -1,7 +1,7 @@
 class BuyersController < ApplicationController
   before_action :authenticate_user!
-  before_action :not_buyer
-  before_action :sold_item
+  before_action :set_item
+  before_action :restriction
   
   def index
     @buyer_order = BuyerOrder.new
@@ -37,15 +37,8 @@ class BuyersController < ApplicationController
     )
   end
 
-  def not_buyer
-    set_item
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
-  end
-
-  def sold_item
-    if @item.buyer != nil
+  def restriction
+    if current_user.id == @item.user_id || @item.buyer != nil
       redirect_to root_path
     end
   end

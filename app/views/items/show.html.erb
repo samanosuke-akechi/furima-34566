@@ -31,7 +31,7 @@
       <% if current_user == @item.user %>
         <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
-        <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
+        <%= link_to "削除", item_path(@item.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class:"item-destroy" %>
       <% else %>
         <%# 「購入画面に進む」ボタン(出品者以外のログインユーザーのみに表示される) %>
         <%= link_to "購入画面に進む", item_buyers_path(@item.id) ,class:"item-red-btn"%>
